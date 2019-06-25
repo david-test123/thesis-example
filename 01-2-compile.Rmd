@@ -1,0 +1,48 @@
+# 輸出論文 {#export-thesis}
+
+## 匯入論文模板 {#import-template}
+
+在 console 執行：
+```r
+ntuthesis::import_template("project_name")
+```
+
+接著將該資料夾變更為 bookdown 專案（working dir 需為該專案資料夾）：
+```r
+ntuthesis::init_proj()  # init working dir as proj.
+```
+
+詳細的檔案結構，見 \@ref(dir-structure)。
+
+## 編輯封面 {#edit-front-matter}
+
+在`_person-info.yml`輸入個人資料後執行：
+
+```r
+ntuthesis::comp_front()
+```
+
+即會在 `front-matter/` 生成封面所需的檔案。以使用者的角度而言，除了 `front-matter/certification.pdf` 以外，不須理會 `front-matter/` 中的其它檔案。`certification.pdf` 是空白（未簽名）的「口試委員審定書」。
+
+使用者可以將 `front-matter/certification.pdf` 列印出來。之後再將簽名過的「口試委員審定書」掃描成 PDF 並命名為 `certification-scan.pdf` ，取代專案資料夾**根目錄**中的同名檔案。
+
+
+## Compile 論文 {#compile-thesis}
+
+使用 RStudio Build Pane 裡的 button 輸出論文：
+
+```{r echo=FALSE, fig.cap="透過 RStudio 輸出論文"}
+if (knitr::is_html_output()) {
+  knitr::include_graphics("figs/build-button.gif")
+} else {
+  knitr::include_graphics("figs/build-button.png")
+}
+```
+
+或是在 console 執行下方指令：
+```r
+bookdown::render_book("index.Rmd", "bookdown::gitbook")
+bookdown::render_book("index.Rmd", "bookdown::pdf_book")
+```
+
+如此便會在 `_book/` 中生成完整的論文（gitbook 和 PDF 格式）。
